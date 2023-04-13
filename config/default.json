@@ -1,5 +1,8 @@
 {
 
 "mongoURI" : "mongodb+srv://sudhanshukumar:2TCiIJlXkE3ugpRK@devconnector.umtbmef.mongodb.net/?retryWrites=true&w=majority",
-"jwtSecret":"mysecrettoken"
+"jwtSecret":"mysecrettoken",
+"githubClientId":"2d8e7a2fc539b8891b8c",
+"githubSecret":"87e7cb739360479beb366e219431d802bb04a8b3"
+
 }
