@@ -6,7 +6,8 @@ import{
       USER_LOADED,
       AUTH_ERROR,
       LOGIN_SUCCESS,
-      LOGIN_FAIL
+      LOGIN_FAIL,
+      LOGOUT
 
 } from './types';
 import setAuthToken from "../utils/setSuthToken";
@@ -84,4 +85,8 @@ if(errors){
             type:LOGIN_FAIL
         });
     }
+};
+//logout  clear profile 
+export const logout=()=>dispatch=>{
+    dispatch({type:LOGOUT});
 };
