@@ -1,74 +1,74 @@
-const express=require('express');
-const router=express.Router();
-const gravatar=require('gravatar');
-const bcrypt=require('bcryptjs');
-const jwt=require('jsonwebtoken');
-const config= require('config');
-const {check, validationResult}=require('express-validator');
-const User=require('../../models/User');
-//@route    POST api/users
-//@desc    register user
-//@access    Public
+const express = require('express');
+const router = express.Router();
+// we need to check the valdiation of the body which is coming.
+const {check,validationResult} = require('express-validator');
+const User = require('../../models/User');
+const garavatar = require('gravatar');
+const bycrypt = require('bcryptjs');
+const config = require('config');
+const jwt = require('jsonwebtoken');
+// this section is going to return the user deatilss. so 
+//@desc above
+//@route POST/api/users
+//access public
+// this to register the user.
 router.post('/',[
-    check('name','Name is required').not().isEmpty(),
-    check('email','Please enter valid email address').isEmail(),
-    check('password','please enter password with 6 or more characters').isLength({min:6})
-
+    check('name','Name is Required').not().isEmpty(),
+    check('email','Email is requried').isEmail(),
+    check('password','Please Enter 6 or more digit pass').isLength({min:6})
 ],
-async (req,res)=>{
-    const errors=validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
+    async (req,res)=>{
+    const error = validationResult(req);
+    if(!error.isEmpty()){
+        return res.status(400).json({errors: error.array()});
     }
-   // console.log(req.body);
-
-    const {name,email,password}=req.body;
+    
+    const {name,email,password} = req.body;
     try{
-        //see is user exists
-        let user=await User.findOne({email});
+        // if there is not eror
+        // if user exits we need to send some message already registered log in
+        // Get User garavator
+        // encrypit password
+        // send re as json.
+        // console.log(req.body);
+        // checking if user exits
+        let user = await User.findOne({email});
         if(user){
-            return res.status(400).json({errors:[{msg:'User already exists'}]});
+            return res.status(400).json({errors: [{msg: 'User Already Exits'}]});
         }
-
-   //get users gravatar
-        const avatar=gravatar.url(email,{
-            s: '200',
+        // if user not exits save it's travator and register the user.
+        const avatar = garavatar.url(email,{
+            s:'200',
             r: 'pg',
             d: 'mm'
-        })
-        user=new User({
-            name,
-            email,
-            avatar,
-            password
-        })
-   //encrypt the password
-        const salt=await bcrypt.genSalt(10);
-        user.password=await bcrypt.hash(password,salt);
+        });
+        user = new User({
+            name,email,password,avatar
+        });
+        // and bycrypist the password of hte user.
+        const salt = await bycrypt.genSalt(10);
+        user.password = await bycrypt.hash(password,salt);
         await user.save();
-
-   //return jsonwebtoken
-        const payload={
-            user:{
-                id:user.id
+        // user has been register return it's accessToken JWT token.
+         const payload = {
+            user: {
+                id: user.id
             }
-        }
-        jwt.sign(
-            payload,
-            config.get('jwtSecret'),
-            {expiresIn:360000},
-            (err,token)=>{
-                if(err)throw err;
-                res.json({token});
-
+         };
+         jwt.sign(payload,config.get('jwtSceretToken'),{expiresIn: 360000},(err,token)=>{
+            if(err){
+                throw err;
             }
-            );
-
-    } catch(err){
-        console.log(err.message);
-        res.status(500).send('Server error');
+            res.json({token}); 
+         })
+        // res.send('User Registered'); 
     }
-   
+    catch(err){
+        console.log(err);
+        res.status(500).json({'msg': 'server error'}); // if anything else hapens.
+
+    }
     
 });
-module.exports=router;
+
+module.exports = router;

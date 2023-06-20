@@ -1,16 +1,17 @@
 {
-  "name": "dev-connector",
+  "name": "devcomm",
   "version": "1.0.0",
-  "description": "social network for developers",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Sudhanshu Kumar",
-  "license": "MIT",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.9",
@@ -19,8 +20,8 @@
     "gravatar": "^1.8.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
-    "request": "^2.88.2",
-    "util": "^0.12.5"
+    "react-router": "^5.2.0",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "concurrently": "^8.0.1",

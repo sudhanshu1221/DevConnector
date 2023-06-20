@@ -1,8 +1,6 @@
 {
-
-"mongoURI" : "mongodb+srv://sudhanshukumar:2TCiIJlXkE3ugpRK@devconnector.umtbmef.mongodb.net/?retryWrites=true&w=majority",
-"jwtSecret":"mysecrettoken",
-"githubClientId":"2d8e7a2fc539b8891b8c",
-"githubSecret":"87e7cb739360479beb366e219431d802bb04a8b3"
-
+    "mongoURI":"mongodb+srv://shubham19kushwaha:qoMlsY6xBzAlzCDZ@devcomm.4rtfjyv.mongodb.net/?retryWrites=true&w=majority",
+    "jwtSceretToken":"it's you",
+    "githubClientID": "53567d074a058de54707",
+    "githubSceretID": "08d8cd9e86f4e153400db31c93f0920b974e32ab"
 }
